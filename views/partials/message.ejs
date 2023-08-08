@@ -1,0 +1,17 @@
+<% if(alert.message != "") { %>
+<div
+  class="alert alert-<%= alert.status %> alert-dismissible fade show"
+  id="myAlert"
+>
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+    &times;
+  </button>
+  <%= alert.message %>
+</div>
+
+<script>
+  setTimeout(function () {
+    document.getElementById("myAlert").classList.remove("show")
+  }, 10000)
+</script>
+<% } %>

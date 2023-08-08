@@ -1,0 +1,150 @@
+<%- include ("../../partials/header.ejs") %> <%- include
+("../../partials/navbar.ejs") %> <%- include ("../../partials/sidebar.ejs") %>
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Reservasi</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/reservasi">Reservasi</a></li>
+            <li class="breadcrumb-item active">Create</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Form Tambah Reservasi</h3>
+            </div>
+
+            <!-- form start -->
+            <form
+              action="/reservasi/create"
+              method="POST"
+            >
+              <div class="card-body">
+                 <div class="form-group">
+                  <label for="nik">NIK</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="nik"
+                    placeholder="Masukkan Nomor Induk Kependudukan"
+                    name="nik"
+                    required
+                  />
+                </div>
+                 <div class="form-group">
+                  <label for="name">nama</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    placeholder="Masukkan Nama Penyewa"
+                    name="name"
+                    required
+                  />
+                </div>
+                 <div class="form-group">
+                  <label for="noHp">No Hp</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="noHp"
+                    placeholder="Masukkan Nomor Handphone Penyewa"
+                    name="noHp"
+                    required
+                  />
+                </div>
+                 <div class="form-group">
+                  <label for="address">Alamat Asal</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="address"
+                    placeholder="Masukkan Asal Penyewa"
+                    name="address"
+                    required
+                  />
+                </div>
+                 <div class="form-group">
+                  <label>No Kamar</label>
+                  <select
+                    class="form-control select2"
+                    style="width: 100%;"
+                    name="noKamar"
+                    data-placeholder="Pilih Nomor Kamar"
+                    required
+                  >
+                    <% datasRoom.forEach(room=> { %>
+                    <option value="<%= room.noKamar %>">
+                      <%= room.noKamar %>
+                    </option>
+                    <% }) %>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="dateStart">Tanggal Mulai</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="dateStart"
+                    placeholder="Masukkan Nomor Kamar"
+                    name="dateStart"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="dateEnd">Tanggal Selesai</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="dateEnd"
+                    placeholder="Masukkan Nomor Kamar"
+                    name="dateEnd"
+                    required
+                  />
+                </div>
+              
+             
+              <!-- /.card-body -->
+
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+<%- include ("../../partials/footer.ejs") %> <%- include
+("../../partials/js.ejs") %>
+
+<script>
+        window.onload = function() {
+            var today = new Date().toISOString().split('T')[0];
+            document.getElementById("dateStart").setAttribute('min', today);
+            document.getElementById("dateEnd").setAttribute('min', today);
+
+
+        };
+</script>

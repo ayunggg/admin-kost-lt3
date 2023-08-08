@@ -1,0 +1,171 @@
+<%- include ("../../partials/header.ejs") %> <%- include
+("../../partials/navbar.ejs") %> <%- include ("../../partials/sidebar.ejs") %>
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Kategori</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/category">Kategori</a></li>
+            <li class="breadcrumb-item active">Create</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Form Tambah Kategori</h3>
+            </div>
+
+            <!-- form start -->
+            <form
+              action="/room/create"
+              method="POST"
+              enctype="multipart/form-data"
+            >
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="noKamar">No Kamar</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="noKamar"
+                    placeholder="Masukkan Nomor Kamar"
+                    name="noKamar"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Fasilitas</label>
+                  <select
+                    class="form-control select2"
+                    style="width: 100%"
+                    name="facility"
+                    data-placeholder="Pilih Kategori"
+                    multiple
+                    required
+                  >
+                    <% datasFacility.forEach(facility=> { %>
+                    <option value="<%= facility.facility %>">
+                      <%= facility.facility %>
+                    </option>
+                    <% }) %>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="price">Harga</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    placeholder="Enter email"
+                    name="price"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="image">Gambar</label>
+                  <input
+                    type="file"
+                    multiple
+                    onchange="previewImages()"
+                    name="image"
+                    id="image"
+                  />
+                  <div id="image-preview"></div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+<%- include ("../../partials/footer.ejs") %> <%- include
+("../../partials/js.ejs") %>
+<style>
+  .preview-image {
+    max-width: 200px;
+    max-height: 200px;
+    margin: 10px;
+  }
+</style>
+
+<script>
+  function previewImages() {
+    var preview = document.querySelector("#image-preview")
+    var files = document.querySelector("input[type=file]").files
+
+    function readAndPreview(file) {
+      // Membuat objek FileReader
+      var reader = new FileReader()
+
+      // Ketika proses membaca file selesai
+      reader.onloadend = function () {
+        var image = new Image()
+        image.src = reader.result
+        image.className = "preview-image"
+        preview.appendChild(image)
+      }
+
+      // Membaca file sebagai URL data
+      reader.readAsDataURL(file)
+    }
+
+    if (files) {
+      ;[].forEach.call(files, readAndPreview)
+    }
+  }
+</script>
+
+<!-- <script>
+  function readImages(input) {
+    if (input.files && input.files.length > 0) {
+      const previewContainer = document.getElementById("preview")
+      previewContainer.innerHTML = "" // Menghapus pratinjau sebelumnya
+
+      for (let i = 0; i < input.files.length; i++) {
+        const reader = new FileReader()
+        const img = document.createElement("img")
+
+        reader.onload = function (e) {
+          img.src = e.target.result
+          img.width = "20%"
+          img.height = "20%"
+
+          previewContainer.appendChild(img)
+        }
+
+        reader.readAsDataURL(input.files[i])
+      }
+    }
+  }
+
+  const imageInput = document.getElementById("image")
+  imageInput.addEventListener("change", function () {
+    readImages(this)
+  })
+</script> -->

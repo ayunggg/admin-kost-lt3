@@ -1,0 +1,57 @@
+<table id="example2" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>No Kamar</th>
+      <th>Fasilitas</th>
+      <th>Harga</th>
+      <th>Status</th>
+      <th>Image</th>
+      <th>Aksi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (let i = 0; i < datasRoom.length; i++) {%>
+    <tr>
+      <td><%= datasRoom[i].noKamar %></td>
+      <td>
+        <% datasRoom[i].facility.forEach(facility => { %>
+        <span class="badge badge-primary"> <%= facility %> </span>
+        <%})%>
+      </td>
+      <td><%= datasRoom[i].price %></td>
+      <td>
+        <% if(datasRoom[i].status === "PENDING") { %>
+        <span class="badge badge-warning"> Pending </span>
+        <%} else if (datasRoom[i].status === "SUCCESS") { %>
+        <span class="badge badge-success"> Success </span>
+        <%} else { %>
+        <span class="badge badge-danger"> Failed </span>
+        <% } %>
+      </td>
+      <td width="12%">
+        <% datasRoom[i].imgUrl.forEach(imgUrl => { %>
+        <img src="<%= imgUrl %>" width="50%" alt="Image Room" />
+        <%})%>
+      </td>
+      <td>
+        <form
+          action="/room/delete/<%= datasRoom[i].id %>?_method=DELETE"
+          method="POST"
+        >
+          <a
+            href="/category/edit/<%= datasRoom[i].id %>"
+            class="btn btn-warning"
+          >
+            <i class="fas fa-pencil-alt"></i>
+            Ubah
+          </a>
+          <button class="btn btn-danger">
+            <i class="fas fa-trash"></i>
+            Hapus
+          </button>
+        </form>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
